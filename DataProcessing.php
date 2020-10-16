@@ -12,9 +12,9 @@ class DataProcessing
     {
         $this->database = $database;
         self::$mainUser = [
-            'entity_id' => 1,
-            'firstname' => 'Mike',
-            'lastname' => 'Patterson',
+            'entity_id'     => 1,
+            'firstname'     => 'Mike',
+            'lastname'      => 'Patterson',
             'email' => 'mike_pat@example.org',
             'position' => 'president',
             'shares_amount' => 10000,
@@ -32,16 +32,16 @@ class DataProcessing
 
             if (!empty($row)) {
                 echo 'GOOD!';
-                $this->generatingNewUsers($arraySource);
+                $this->generateNewUsers($arraySource);
             } else {
                 $this->deletingAllData();
-                $this->generatingFirstUser();
-                $this->generatingNewUsers($arraySource);
+                $this->generateFirstUser();
+                $this->generateNewUsers($arraySource);
             }
         } else {
             echo "Your table '{$this->table}' is empty. Generating new data..." . PHP_EOL;
-            $this->generatingFirstUser();
-            $this->generatingNewUsers($arraySource);
+            $this->generateFirstUser();
+            $this->generateNewUsers($arraySource);
 //            generating new table
         }
     }
@@ -68,7 +68,7 @@ class DataProcessing
         return $this->database->run("TRUNCATE TABLE {$this->table}");
     }
 
-    public function generatingFirstUser()
+    public function generateFirstUser()
     {
         $sql = "INSERT INTO {$this->table} VALUES (:entity_id, :firstname, :lastname, :email, :position, :shares_amount, :start_date, :parent_id)";
         try {
@@ -79,7 +79,7 @@ class DataProcessing
         }
     }
 
-    public function generatingNewUsers($arraySource)
+    public function generateNewUsers($arraySource)
     {
         $arrayRemainUsers = [];
         $faker = Faker\Factory::create();
