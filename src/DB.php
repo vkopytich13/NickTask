@@ -20,4 +20,19 @@ class DB extends PDO
         $stmt->execute($args);
         return $stmt;
     }
+
+    public function get($value, $field = null)
+    {
+
+    }
+
+    public function save($id)
+    {
+
+    }
+
+    public function cleanOut()
+    {
+
+    }
 }
