@@ -1,17 +1,21 @@
 <?php
 
 require_once 'vendor/autoload.php';
-require_once 'config.php';
+require_once 'Setup/ConfigReader.php';
 require_once 'DB.php';
-require_once 'DataProcessing.php';
+$config = require_once 'Config/Config.php';
 
+$dbConfig = new ConfigReader($config);
+
+echo '<pre>';
+var_dump($dbConfig->getPresident());
+echo '</pre>';
 
 try {
-    $pdo = new DB("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-    $partic = new DataProcessing($pdo);
-    $res = $partic->logic();
+    $pdo = new DB("mysql:host=".$dbConfig->getHostName().";dbname=".$dbConfig->getDBName(), $dbConfig->getUserName(), $dbConfig->getUserPassword());
+    var_dump($pdo);
 
     $pdo = null;
 } catch (PDOException $e) {
-    die("Could not connect to the database " . DB_NAME . ": " . $e->getMessage());
+    die("Could not connect to the database " . $dbConfig->getDBName() . ": " . $e->getMessage());
 }
